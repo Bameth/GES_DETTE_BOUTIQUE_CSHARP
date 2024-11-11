@@ -11,47 +11,7 @@ namespace csharp.services
         public UserServiceImpl(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
-            InitializeUsers();
         }
-        private void InitializeUsers()
-        {
-            if (userRepository.Count() == 0)
-            {
-                userRepository.Insert(new User
-                {
-                    Name = "BAILA WANE",
-                    Login = "bbw_login",
-                    Password = "b".Trim(),
-                    Role = Role.ADMIN,
-                    TypeEtat = TypeEtat.ACTIVER
-                });
-
-                userRepository.Insert(new User
-                {
-                    Name = "Boutiquier User",
-                    Login = "bobo_login",
-                    Password = "b".Trim(),
-                    Role = Role.BOUTIQUIER,
-                    TypeEtat = TypeEtat.ACTIVER
-                });
-
-                userRepository.Insert(new User
-                {
-                    Name = "Client User",
-                    Login = "moh_login",
-                    Password = "b".Trim(),
-                    Role = Role.CLIENT,
-                    TypeEtat = TypeEtat.ACTIVER
-                });
-            }
-
-            foreach (var user in userRepository.SelectAll())
-            {
-                Console.WriteLine($"User {user.Login} - {user.Name} - {user.Role} - {user.TypeEtat}");
-                Console.WriteLine($"Utilisateur créé : {user.Login}, Password: {user.Password}");
-            }
-        }
-
 
         public int Count()
         {
@@ -73,7 +33,7 @@ namespace csharp.services
             return userRepository.SelectByEtat(etat);
         }
 
-        public User FindByLogin(string login, string password)
+        public User? FindByLogin(string login, string password)
         {
             Console.WriteLine($"Tentative de connexion : Login={login}, Password={password}");
             return userRepository.SelectByLogin(login, password);
@@ -85,7 +45,7 @@ namespace csharp.services
             return userRepository.SelectByRole(role);
         }
 
-        public User GetBy(string objet)
+        public User? GetBy(string objet)
         {
             return userRepository.SelectByName(objet);
         }

@@ -6,7 +6,7 @@ namespace csharp.core.interfaces
         void Create(T objet);
         List<T> FindAll();
         Boolean Update(T objet);
-        T GetBy(String objet);
+        T? GetBy(String objet);
         int Count();
     }
 }

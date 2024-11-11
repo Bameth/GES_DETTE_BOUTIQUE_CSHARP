@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using csharp.enums;
 
 namespace csharp.entities
@@ -14,6 +12,9 @@ namespace csharp.entities
         private TypeDette typeDette;
         private List<Detail> details = new List<Detail>();
         private Client client;
+        private DateTime createdAt;
+        private DateTime updatedAt;
+        private static int count = 0;
 
         public int Id { get => id; set => id = value; }
         public double Montant { get => montant; set => montant = value; }
@@ -24,19 +25,19 @@ namespace csharp.entities
         public List<Detail> Details => details;
         public Client Client { get => client; set => client = value; }
         public TypeDette TypeDette { get => typeDette; set => typeDette = value; }
+        public DateTime CreatedAt { get => createdAt; set => createdAt = value; }
+        public DateTime UpdatedAt { get => updatedAt; set => updatedAt = value; }
 
-        private static int count = 0;
-
-        // Constructeur
         public Dept()
         {
             id = count++;
             date = DateTime.Now;
             this.typeDette = TypeDette.ENCOURS;
+            createdAt = DateTime.Now;
+            updatedAt = DateTime.Now;
             UpdateEtat();
         }
 
-        // Mise à jour de l'état
         public void UpdateEtat()
         {
             if (MontantRestant > 0)
@@ -48,11 +49,11 @@ namespace csharp.entities
                 this.etat = EtatDette.SOLDEES;
             }
         }
-        
+
         public override string ToString()
         {
             string detailsStr = (details.Count > 0) ? string.Join(", ", details) : "Aucun détail";
-            return $"Dept {id} : {Montant} - {date} - {etat} - {detailsStr} - {typeDette}";
+            return $"Dept {id} : {Montant} - {date} - {etat} - {detailsStr} - {typeDette} - CreatedAt: {createdAt} - UpdatedAt: {updatedAt}";
         }
     }
 }

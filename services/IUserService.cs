@@ -10,7 +10,7 @@ namespace csharp.services
 
         List<User> FindByRole(Role role);
 
-        User FindByLogin(string login, string password);
+        User? FindByLogin(string login, string password);
 
     }
 }

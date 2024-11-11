@@ -19,7 +19,7 @@ namespace csharp.repository.list
             }
             return availableArticles;
         }
-        public Articles SelectByReference(string reference)
+        public Articles? SelectByReference(string reference)
         {
             foreach (Articles article in list)
             {

@@ -10,20 +10,17 @@ namespace csharp.repository.list
     {
         private readonly List<User> list = new();
 
-        public User SelectByName(string name)
+        public User? SelectByName(string name)
         {
             return list.FirstOrDefault(user => string.Equals(user.Name, name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public User SelectByLogin(string login, string password)
+        public User? SelectByLogin(string login, string password)
         {
             return list.FirstOrDefault(user =>
                 string.Equals(user.Login, login, StringComparison.OrdinalIgnoreCase) &&
                 user.Password == password);
         }
-
-
-
 
         public List<User> SelectByEtat(TypeEtat etat)
         {

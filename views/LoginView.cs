@@ -15,14 +15,14 @@ namespace csharp.views
         public User ConnectUser()
         {
             Console.Write("Entrez votre login : ");
-            string login = Console.ReadLine();
+            string login = Console.ReadLine()?.Trim();  // Trim input directly
             if (string.IsNullOrEmpty(login))
             {
                 Console.WriteLine("Veuillez entrer un login valide.");
                 return null;
             }
             Console.Write("Entrez votre mot de passe : ");
-            string password = Console.ReadLine();
+            string password = Console.ReadLine()?.Trim();  // Trim input directly
             if (string.IsNullOrEmpty(password))
             {
                 Console.WriteLine("Veuillez entrer un mot de passe valide.");
@@ -43,5 +43,4 @@ namespace csharp.views
         }
 
     }
-
 }

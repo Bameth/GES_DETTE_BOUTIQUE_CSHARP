@@ -30,7 +30,7 @@ namespace csharp.views
             client.Phone = Console.ReadLine();
 
             Console.WriteLine("Enter address: ");
-            client.Address = Console.ReadLine();
+            client.Addresse = Console.ReadLine();
 
             return AskForUserClient(client);
         }
