@@ -18,9 +18,9 @@ namespace csharp.services
             return userRepository.Count();
         }
 
-        public void Create(User objet)
+        public bool Create(User objet)
         {
-            userRepository.Insert(objet);
+            return userRepository.Insert(objet);
         }
 
         public List<User> FindAll()

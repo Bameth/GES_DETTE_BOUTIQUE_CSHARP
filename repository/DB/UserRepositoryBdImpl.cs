@@ -49,8 +49,19 @@ namespace csharp.repository.DB
                 user.CreatedAt = DateTime.Now;
                 user.UpdatedAt = DateTime.Now;
 
-                var result = db.Execute(query, user);
+                var result = db.Execute(query, new
+                {
+                    user.Name,
+                    user.Login,
+                    user.Password,
+                    Role = user.Role.ToString(),   // Utilisation de ToString pour insérer comme chaîne
+                    TypeEtat = user.TypeEtat.ToString(),   // Idem pour TypeEtat
+                    user.CreatedAt,
+                    user.UpdatedAt
+                });
+
                 return result > 0;
+
             }
         }
 
@@ -67,10 +78,11 @@ namespace csharp.repository.DB
         {
             using (NpgsqlConnection db = dataAccess.GetConnections())
             {
-                const string query = "SELECT * FROM \"user\" WHERE \"typeetat\" = @Etat";
-                return db.Query<User>(query, new { Etat = etat }).ToList();
+                const string query = "SELECT * FROM \"user\" WHERE \"typeetat\" = @Etat::TEXT";
+                return db.Query<User>(query, new { Etat = etat.ToString() }).ToList();
             }
         }
+
 
         public User SelectById(int id)
         {
@@ -109,10 +121,11 @@ namespace csharp.repository.DB
         {
             using (NpgsqlConnection db = dataAccess.GetConnections())
             {
-                const string query = "SELECT * FROM \"user\" WHERE \"role\" = @Role";
-                return db.Query<User>(query, new { Role = role }).ToList();
+                const string query = "SELECT * FROM \"user\" WHERE \"role\" = @Role::TEXT";
+                return db.Query<User>(query, new { Role = role.ToString() }).ToList();
             }
         }
+
 
         public bool Update(User user)
         {
@@ -124,9 +137,9 @@ namespace csharp.repository.DB
                 }
 
                 const string query = @"
-            UPDATE ""user""
-            SET name = @Name, login = @Login, password = @Password, role = @Role, typeetat = @TypeEtat, updatedAt = @UpdatedAt
-            WHERE id = @Id";
+                UPDATE ""user""
+                SET name = @Name, login = @Login, password = @Password, role = @Role, typeetat = @TypeEtat, updatedAt = @UpdatedAt
+                WHERE id = @Id";
 
                 user.UpdatedAt = DateTime.Now;
 

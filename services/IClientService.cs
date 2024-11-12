@@ -5,6 +5,8 @@ namespace csharp.services
     public interface IClientService : IService<Client>
     {
         public Client Search(String phone);
+        bool CreateUserclient(Client objet);
+
         public Client FindById(int id);
         List<Client> FindAllClientWithAccount();
         Client FindByUserId(int userId);

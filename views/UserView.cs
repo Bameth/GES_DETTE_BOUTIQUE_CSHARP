@@ -18,7 +18,7 @@ namespace csharp.views
 
         public override User Saisie()
         {
-            User user = new User();
+            User user = new();
             Console.WriteLine("Veuillez saisir les informations de l'utilisateur :");
             Console.WriteLine("===============================================");
             Console.WriteLine("Name :");
@@ -62,7 +62,7 @@ namespace csharp.views
             return user;
         }
 
-        public Role SaisieRole()
+        public static Role SaisieRole()
         {
             int roleChoice;
             do

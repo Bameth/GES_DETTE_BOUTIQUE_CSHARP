@@ -5,9 +5,9 @@ namespace csharp.entities
         private int id;
         private string surname;
         private string phone;
-        private string addresse;
+        private string address;
         private User user;
-        private int? userId; // Store only the user ID
+        private int? userid;
         private DateTime createdAt;
         private DateTime updatedAt;
         private static int count = 0;
@@ -15,9 +15,9 @@ namespace csharp.entities
         public int Id { get => id; set => id = value; }
         public string Surname { get => surname; set => surname = value; }
         public string Phone { get => phone; set => phone = value; }
-        public string Addresse { get => addresse; set => addresse = value; }
-        public User User { get => user; set => user = value; }
-        public int? UserId { get => userId; set => userId = value; }
+        public string Address { get => address; set => address = value; }
+        public User? User { get => user; set => user = value ?? new User(); }
+        public int? UserId { get => userid; set => userid = value; }
         public DateTime CreatedAt { get => createdAt; set => createdAt = value; }
         public DateTime UpdatedAt { get => updatedAt; set => updatedAt = value; }
 
@@ -30,7 +30,14 @@ namespace csharp.entities
 
         public override string ToString()
         {
-            return $"Client {id} : {surname} - {phone} - {addresse} - {user?.Name} - CreatedAt: {createdAt} - UpdatedAt: {updatedAt}";
+            if (user == null || user.Id == 0) // Ajout d'une vérification de l'ID de l'utilisateur
+            {
+                return $"Client {id} : {surname} - {phone} - {address} - Aucun utilisateur associé";
+            }
+
+            return $"Client {id} : {surname} - {phone} - {address} - {user.Name}"; // Affiche le nom de l'utilisateur
         }
+
+
     }
 }

@@ -8,5 +8,6 @@ namespace csharp.core.interfaces
         Client SelectByPhone(String phone);
         List<Client> FindAllClientWithAccount();
         Client SelectByUserId(int userId);
+        bool InsertClientUser(Client client);
     }
 }

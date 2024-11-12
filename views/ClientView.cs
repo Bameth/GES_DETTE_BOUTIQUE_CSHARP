@@ -30,26 +30,26 @@ namespace csharp.views
             client.Phone = Console.ReadLine();
 
             Console.WriteLine("Enter address: ");
-            client.Addresse = Console.ReadLine();
+            client.Address = Console.ReadLine();
 
-            return AskForUserClient(client);
+
+            return client;
         }
-
-        public Client AskForUserClient(Client client)
+        public Client SaisieClientWithAccount()
         {
-            Console.WriteLine("Voulez-vous créer un compte utilisateur pour ce client? (oui/non)");
-            string choice = Console.ReadLine();
+            Client client = new();
 
-            if (choice.Equals("oui", StringComparison.OrdinalIgnoreCase))
-            {
-                User user = userView.Saisie();
-                userService.Create(user);
-                client.User = user;
-            }
-            else
-            {
-                client.User = null;
-            }
+            Console.WriteLine("Enter surname: ");
+            client.Surname = Console.ReadLine();
+
+            Console.WriteLine("Enter phone: ");
+            client.Phone = Console.ReadLine();
+
+            Console.WriteLine("Enter address: ");
+            client.Address = Console.ReadLine();
+
+            User user = userView.Saisie();
+            client.User = user;
 
             return client;
         }

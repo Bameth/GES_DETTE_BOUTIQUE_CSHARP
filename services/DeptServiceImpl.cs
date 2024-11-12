@@ -17,9 +17,9 @@ namespace csharp.services
             return deptRepository.Count();
         }
 
-        public void Create(Dept objet)
+        public bool Create(Dept objet)
         {
-            deptRepository.Insert(objet);
+            return deptRepository.Insert(objet);
         }
 
         public List<Dept> FindAll()

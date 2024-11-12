@@ -17,9 +17,9 @@ namespace csharp.services
             return detailRepository.Count();
         }
 
-        public void Create(Detail objet)
+        public bool Create(Detail objet)
         {
-            detailRepository.Insert(objet);
+            return detailRepository.Insert(objet);
         }
 
         public List<Detail> FindAll()

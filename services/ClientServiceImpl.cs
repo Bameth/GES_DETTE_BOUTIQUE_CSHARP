@@ -17,10 +17,16 @@ namespace csharp.services
             return clientRepository.Count();
         }
 
-        public void Create(Client objet)
+        public bool Create(Client objet)
         {
-            clientRepository.Insert(objet);
+            return clientRepository.Insert(objet);
         }
+
+        public bool CreateUserclient(Client objet)
+        {
+            return clientRepository.InsertClientUser(objet);
+        }
+
 
         public List<Client> FindAll()
         {
@@ -47,7 +53,7 @@ namespace csharp.services
 
         public Client GetBy(string objet)
         {
-            throw new NotImplementedException();
+            return clientRepository.SelectByPhone(objet);
         }
 
         public Client Search(string phone)

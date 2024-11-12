@@ -17,9 +17,9 @@ namespace csharp.services
             return articleRepository.Count();
         }
 
-        public void Create(Articles objet)
+        public bool Create(Articles objet)
         {
-            articleRepository.Insert(objet);
+            return articleRepository.Insert(objet);
         }
 
         public List<Articles> FindAll()

@@ -22,5 +22,12 @@ namespace csharp.repository.list
         {
             return list.FirstOrDefault(client => client.User != null && client.User.Id == userId);
         }
+
+        public bool InsertClientUser(Client client)
+        {
+            list.Add(client);
+            return true;
+        }
+
     }
 }
