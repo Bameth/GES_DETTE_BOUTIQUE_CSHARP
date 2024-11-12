@@ -40,7 +40,7 @@ namespace csharp
                     do
                     {
                         choice = Menu.DisplayAdminMenu();
-                        HandleAdminMenuChoice(choice, clientServiceImpl, userServiceImpl, articleServiceImpl, deptServiceImpl);
+                        HandleAdminMenuChoice(choice, clientServiceImpl, userServiceImpl, articleServiceImpl, deptServiceImpl, clientView, deptView, userView, articleView);
                     } while (choice != 11);
                 }
                 else if (loggedInUser.Role == Role.BOUTIQUIER)
@@ -68,18 +68,20 @@ namespace csharp
         }
 
         // Gestion des actions pour l'Admin
-        private static void HandleAdminMenuChoice(int choice, ClientServiceImpl clientServiceImpl, UserServiceImpl userServiceImpl, ArticleServiceImpl articleServiceImpl, DeptServiceImpl deptServiceImpl)
+        private static void HandleAdminMenuChoice(int choice, ClientServiceImpl clientServiceImpl,
+        UserServiceImpl userServiceImpl, ArticleServiceImpl articleServiceImpl,
+        DeptServiceImpl deptServiceImpl, ClientView clientViewImpl, DeptView deptViewImpl, UserView userViewImpl, ArticleView articleView)
         {
             switch (choice)
             {
                 case 1:
-
+                    clientServiceImpl.CreateUserclient(clientViewImpl.SaisieClientWithAccount());
                     break;
                 case 2:
-
+                    clientServiceImpl.Create(clientViewImpl.Saisie());
                     break;
                 case 3:
-
+                    userServiceImpl.Update(userViewImpl.Status());
                     break;
                 case 4:
                     foreach (var user in userServiceImpl.FindAll())
@@ -88,19 +90,47 @@ namespace csharp
                     }
                     break;
                 case 5:
-                    // Filtrer utilisateurs par état ou rôle
+                    Console.WriteLine("1- Afficher les utilisateurs actifs/désactivés");
+                    Console.WriteLine("2- Afficher les utilisateurs par rôle");
+                    int filterChoice = int.Parse(Console.ReadLine());
+                    if (filterChoice == 1)
+                    {
+                        userViewImpl.DisplayUsersByEtat();
+                    }
+                    else if (filterChoice == 2)
+                    {
+                        userViewImpl.DisplayUsersByRole();
+                    }
                     break;
                 case 6:
-                    // Créer un article
+                    articleServiceImpl.Create(articleView.Saisie());
                     break;
                 case 7:
-                    // Afficher un article
+                    foreach (var user in userServiceImpl.FindAll())
+                    {
+                        Console.WriteLine(user);
+                    }
                     break;
                 case 8:
-                    // Filtrer par disponibilité
+                    var availableArticles = articleServiceImpl.FindAvailable();
+                    foreach (var article in availableArticles)
+                    {
+                        Console.WriteLine(article);
+                    }
                     break;
                 case 9:
-                    // Mettre à jour la quantité en stock
+                    var articleToUpdate = articleView.UpdateQteStock();
+                    if (articleToUpdate != null)
+                    {
+                        if (articleServiceImpl.Update(articleToUpdate))
+                        {
+                            Console.WriteLine("qteStock modifiée avec succès !");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Erreur lors de la modification de la qteStock.");
+                        }
+                    }
                     break;
                 case 10:
                     // Archiver les dettes soldées

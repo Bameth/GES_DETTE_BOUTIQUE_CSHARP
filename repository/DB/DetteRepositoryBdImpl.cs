@@ -8,14 +8,9 @@ using Npgsql;
 
 namespace csharp.repository.DB
 {
-    public class DetteRepositoryBdImpl : IDeptRepository
+    public class DetteRepositoryBdImpl(IDataAccess dataAccess) : IDeptRepository
     {
-        private readonly IDataAccess dataAccess;
-
-        public DetteRepositoryBdImpl(IDataAccess dataAccess)
-        {
-            this.dataAccess = dataAccess;
-        }
+        private readonly IDataAccess dataAccess = dataAccess;
 
         public int Count()
         {
@@ -127,8 +122,8 @@ namespace csharp.repository.DB
         {
             using (NpgsqlConnection db = dataAccess.GetConnections())
             {
-                const string query = "SELECT * FROM dept WHERE typedette = @TypeDette";
-                return db.Query<Dept>(query, new { TypeDette = etat }).ToList();
+                const string query = "SELECT * FROM dept WHERE typedette = @TypeDette::TEXT";
+                return db.Query<Dept>(query, new { Etat = etat.ToString() }).ToList();
             }
         }
 
